@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Notas de Certámenes - 10 Alumnos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header class="app-header">
+        <div class="contenedor header-contenido">
+            <div class="header-titulos">
+                <span class="subtitulo-tag">Reto 2 • Programación JavaScript</span>
+                <h1>Sistema de Gestión de Notas</h1>
+                <p>Control de certámenes para un curso de 10 alumnos con cálculo de promedios, ranking y estadísticas.</p>
+            </div>
+            <div class="acciones-rapidas">
+                <button type="button" id="btn-cargar-ejemplo" class="btn-secundario" title="Carga a Carlos y Juan con las notas del enunciado">
+                    ⚡ Cargar Ejemplo
+                </button>
+                <button type="button" id="btn-completar-10" class="btn-secundario" title="Completa rápidamente los 10 alumnos">
+                    👥 Llenar 10 Alumnos
+                </button>
+                <button type="button" id="btn-reiniciar" class="btn-secundario btn-peligro" title="Borrar y comenzar de nuevo">
+                    🔄 Reiniciar
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="contenedor principal">
+        
+        <!-- Tarjeta del Formulario-->
+        <section class="seccion-formulario">
+            <div class="tarjeta tarjeta-formulario">
+                
+                <div class="formulario-encabezado">
+                    <div class="info-cupos">
+                        <span class="etiqueta-cupos">Cupos del Curso:</span>
+                        <span id="contador-alumnos" class="badge-contador">0 / 10</span>
+                    </div>
+                </div>
+
+                <!-- Mensajes de Alerta o bueno de validación-->
+                <div id="alerta-mensaje" class="alerta alerta-oculta" role="alert"></div>
+
+                <form id="form-alumno" novalidate>
+                    <div class="grupo-campo">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Ej: Carlos" required autocomplete="off">
+                    </div>
+
+                    <div class="grupo-campo">
+                        <label for="certamen1">Certamen 1:</label>
+                        <input type="number" id="certamen1" name="certamen1" placeholder="Ej: 78 (1 a 100)" min="1" max="100" step="any" required>
+                    </div>
+
+                    <div class="grupo-campo">
+                        <label for="certamen2">Certamen 2:</label>
+                        <input type="number" id="certamen2" name="certamen2" placeholder="Ej: 98 (1 a 100)" min="1" max="100" step="any" required>
+                    </div>
+
+                    <div class="grupo-campo">
+                        <label for="certamen3">Certamen 3:</label>
+                        <input type="number" id="certamen3" name="certamen3" placeholder="Ej: 74 (1 a 100)" min="1" max="100" step="any" required>
+                    </div>
+
+                    <button type="submit" id="btn-agregar" class="btn-agregar">
+                        Agregar Alumno
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Sección de Resultados, Vista 2 debajo del formulario -->
+        <section id="seccion-resultados" class="seccion-resultados" style="display: none;">
+            
+            <div class="navegacion-tabs">
+                <button type="button" class="tab-btn active" data-tab="vista-oficial">
+                    📋 Vista Resultados (Formato Referencia)
+                </button>
+                <button type="button" class="tab-btn" data-tab="ranking">
+                    🏆 Ranking Ordenado por Promedio
+                </button>
+                <button type="button" class="tab-btn" data-tab="resumen-visual">
+                    📊 Panel Analítico y Tabla
+                </button>
+            </div>
+
+            <!-- TAB 1: Vista idéntica a la imagen de referencia  -->
+            <div id="tab-vista-oficial" class="tab-contenido active">
+                <div class="tarjeta tarjeta-resultados-referencia">
+                    <div class="tarjeta-cabecera-simple">
+                        <h3>Resultados Generados del Curso</h3>
+                        <p class="nota-ayuda">Formato solicitado en el enunciado para la entrega del curso.</p>
+                    </div>
+                    <div id="vista-texto-resultado" class="vista-texto-resultado">
+                       
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: Ranking Ordenado por Promedio -->
+            <div id="tab-ranking" class="tab-contenido">
+                <div class="tarjeta">
+                    <div class="tarjeta-cabecera-simple">
+                        <h3>Alumnos Ordenados por Promedio (Mayor a Menor)</h3>
+                        <p class="nota-ayuda">Calculado mediante función de orden superior <code>sort()</code>.</p>
+                    </div>
+                    <div id="contenedor-ranking" class="lista-ranking">
+                      
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: Panel Analítico y Tabla Completa -->
+            <div id="tab-resumen-visual" class="tab-contenido">
+                <!-- Estadísticas-->
+                <div id="contenedor-estadisticas" class="grid-estadisticas">
+               
+                </div>
+
+                <!-- Tabla de datos -->
+                <div class="tarjeta tarjeta-tabla">
+                    <div class="tarjeta-cabecera-simple">
+                        <h3>Detalle Completo de Alumnos</h3>
+                    </div>
+                    <div class="tabla-responsiva">
+                        <table class="tabla-alumnos">
+                            <thead>
+                                <tr>
+                                    <th>N°</th>
+                                    <th>Nombre del Alumno</th>
+                                    <th>Certamen 1</th>
+                                    <th>Certamen 2</th>
+                                    <th>Certamen 3</th>
+                                    <th>Promedio</th>
+                                    <th>Condición</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cuerpo-tabla-alumnos">
+                            
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="app-footer">
+        <div class="contenedor">
+            <p>Reto 2 • Gestión de Notas con JavaScript Modular (ES6) y CSS Profesional • Escala 1 a 100 • Aprobación &ge; 55</p>
+        </div>
+    </footer>
+
+    <!--Script con funciones requeridas-->
+    <script src="interfaz.js"></script>
+</body>
+</html>
