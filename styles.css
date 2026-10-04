@@ -1,0 +1,84 @@
+/* Estilos generales */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+body {
+    background-color: #f2f4f7;
+    color: #222;
+    padding: 30px 15px;
+}
+
+.contenedor {
+    max-width: 440px;
+    margin: 0 auto;
+}
+
+/* Tarjeta (Fiel a la captura) */
+.tarjeta {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    margin-bottom: 25px;
+}
+
+/* Formulario */
+.campo {
+    margin-bottom: 15px;
+}
+
+.campo label {
+    display: block;
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 6px;
+    color: #111;
+}
+
+.campo input {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.campo input:focus {
+    border-color: #3fa752;
+}
+
+/* Botón verde idéntico a la imagen */
+#btn-agregar {
+    width: 100%;
+    background-color: #3fa752;
+    color: #ffffff;
+    border: none;
+    padding: 11px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 5px;
+}
+
+#btn-agregar:hover {
+    background-color: #358d45;
+}
+
+/* Resultados (Vista 2) */
+.tarjeta-resultados {
+    font-size: 15px;
+    line-height: 1.65;
+    color: #222;
+}
+
+.tarjeta-resultados p {
+    margin: 2px 0;
+}
